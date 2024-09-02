@@ -1,12 +1,18 @@
-<br>
 <mat-grid-list cols="1" rowHeight="100px">
   <mat-grid-tile>
     <h4>Simple ScanZ</h4>
   </mat-grid-tile>
-  <mat-grid-tile> <input type="file" accept="image/*" (change)="readURL($event);" capture="user">
-  </mat-grid-tile>
   <mat-grid-tile>
-    @if(imageSrc){ <img id="blah" [src]="imageSrc" width="300px" alt="your image" />}
+    <label for="uploadInput"><img width="80px" style="cursor: pointer;" alt="take photo" src="camera.svg"></label>
+    <input id="uploadInput" type="file" accept="image/*" style="display:none" (change)="readURL($event);"
+      capture="user">
   </mat-grid-tile>
+ 
   <mat-grid-tile> @if (imageSrc) { <button mat-raised-button>Submit</button>}</mat-grid-tile>
 </mat-grid-list>
+<div style="display: flex; align-items: center; justify-content: center;">
+@if(imageSrc)
+{
+<img [src]="imageSrc" style="width: 1000px;" alt="your image" />
+}
+</div>
