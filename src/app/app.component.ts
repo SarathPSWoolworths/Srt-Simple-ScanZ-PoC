@@ -18,6 +18,9 @@ export class AppComponent {
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
   }
+  submitImage() {
+    alert('Image sent to sps@tcs.woolworths.com.au');
+  }
   readURL(event: any ): void {
     if (!event?.currentTarget?.files) return;
     if (event.currentTarget.files && event.currentTarget.files[0]) {

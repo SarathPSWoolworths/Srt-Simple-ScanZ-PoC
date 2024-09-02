@@ -8,11 +8,11 @@
       capture="user">
   </mat-grid-tile>
  
-  <mat-grid-tile> @if (imageSrc) { <button mat-raised-button>Submit</button>}</mat-grid-tile>
+  <mat-grid-tile> @if (imageSrc) { <button mat-raised-button (click)="submitImage()">Submit</button>}</mat-grid-tile>
 </mat-grid-list>
 <div style="display: flex; align-items: center; justify-content: center;">
 @if(imageSrc)
 {
-<img [src]="imageSrc" style="width: 1000px;" alt="your image" />
+<img [src]="imageSrc" style="width: 400px; height: 600px;" alt="your image" />
 }
 </div>
