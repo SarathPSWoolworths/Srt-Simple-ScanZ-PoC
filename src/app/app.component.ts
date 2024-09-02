@@ -10,7 +10,7 @@ import { merge } from 'rxjs';
 })
 export class AppComponent {
   readonly email = new FormControl('', [Validators.required, Validators.email]);
-
+  public imageSrc: any = '';
   errorMessage = signal('');
 
   constructor() {
@@ -18,7 +18,17 @@ export class AppComponent {
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
   }
+  readURL(event: any ): void {
+    if (!event?.currentTarget?.files) return;
+    if (event.currentTarget.files && event.currentTarget.files[0]) {
+        const file = event.currentTarget.files[0];
 
+        const reader = new FileReader();
+        reader.onload = e => this.imageSrc = reader.result;
+
+        reader.readAsDataURL(file);
+    }
+}
   updateErrorMessage() {
     if (this.email.hasError('required')) {
       this.errorMessage.set('You must enter a value');
