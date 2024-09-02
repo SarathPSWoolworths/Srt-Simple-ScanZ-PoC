@@ -1,2 +1,21 @@
-<h1>Simple ScanZ</h1>
-<input type="file" accept="image/*" capture="user">
+
+<br>
+<mat-grid-list cols="1" rowHeight="100px">
+  <mat-grid-tile ><h4>Simple ScanZ</h4></mat-grid-tile>
+  <mat-grid-tile> <mat-form-field>
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      placeholder="pat@example.com"
+      [formControl]="email"
+      (blur)="updateErrorMessage()"
+      required
+    />
+    @if (email.invalid) {
+      <mat-error>{{errorMessage()}}</mat-error>
+    }
+  </mat-form-field></mat-grid-tile>
+  <mat-grid-tile><input type="file" accept="image/*" capture="user">
+  </mat-grid-tile>
+  <mat-grid-tile> <button mat-raised-button>Submit</button></mat-grid-tile>
+</mat-grid-list>
