@@ -1,7 +1,7 @@
 <mat-grid-list cols="1" rowHeight="100px">
   <mat-grid-tile>
     <div style="display: flex; align-items: baseline; justify-content: center;">
-      <h4>Simple ScanZ</h4> 
+      <h4>Simple ScanZ</h4>
       <a title="open github" style="margin-left: 20px;" target="_blank"
         href="https://github.com/SarathPSWoolworths/Srt-Simple-ScanZ-PoC">
         <img width="25px" alt="github" src="github.svg" />
@@ -9,18 +9,22 @@
     </div>
   </mat-grid-tile>
   <mat-grid-tile>
-    <label for="uploadInput" title="open camera"><img width="80px" style="cursor: pointer;" alt="take photo"
-        src="camera.svg"></label>
+    <label for="uploadInput" title="open camera" style="text-align: -webkit-center;cursor: pointer;">
+      <img width="80px"  alt="take photo" src="camera.svg" />
+      <br>
+      <span>Click to Open Camera</span>
+    </label>
     <input id="uploadInput" type="file" accept="image/*" style="display:none" (change)="readURL($event);"
       capture="user">
   </mat-grid-tile>
-  <mat-grid-tile> @if (imageSrc) {
-    <button mat-raised-button (click)="submitImage()">Download as PDF</button>
-    }</mat-grid-tile>
+  <mat-grid-tile>
+    @if (imageSrc) {
+    <button mat-raised-button (click)="submitImage()">{{isDownloading ? 'Downloading....':'Download as PDF'}}</button>
+    }
+  </mat-grid-tile>
 </mat-grid-list>
 <div style="display: flex; align-items: center; justify-content: center;">
-  @if(imageSrc)
-  {
-  <img id="pdf-content" [src]="imageSrc" style="width: 400px;" alt="your image" />
+  @if(imageSrc) {
+  <img id="pdf-content" style="width: 20vw;" [src]="imageSrc" alt="your image" />
   }
 </div>

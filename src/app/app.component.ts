@@ -13,6 +13,7 @@ import jsPDF from 'jspdf';
 export class AppComponent {
   readonly email = new FormControl('', [Validators.required, Validators.email]);
   public imageSrc: any = '';
+  public isDownloading: boolean = false;
   errorMessage = signal('');
 
   constructor() {
@@ -46,17 +47,22 @@ export class AppComponent {
   }
 
   downloadPDF() {
+    if(this.isDownloading)
+      return;
+
+    this.isDownloading = true;
     const data = document.getElementById('pdf-content');
     if (data) {
       html2canvas(data).then(canvas => {
         const imgWidth = 208;
         const imgHeight = canvas.height * imgWidth / canvas.width;
         const contentDataURL = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdf = new jsPDF('p', 'px', 'a4');
         const position = 0;
         pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
         const fileName = 'PDF_' + new Date().getTime() + '.pdf';
         pdf.save(fileName);
+        this.isDownloading = false;
       });
     }
   }
