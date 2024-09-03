@@ -22,19 +22,19 @@ export class AppComponent {
   }
   submitImage() {
     this.downloadPDF();
-   // alert('PDF sent to sps@tcs.woolworths.com.au');
+    // alert('PDF sent to sps@tcs.woolworths.com.au');
   }
-  readURL(event: any ): void {
+  readURL(event: any): void {
     if (!event?.currentTarget?.files) return;
     if (event.currentTarget.files && event.currentTarget.files[0]) {
-        const file = event.currentTarget.files[0];
+      const file = event.currentTarget.files[0];
 
-        const reader = new FileReader();
-        reader.onload = e => this.imageSrc = reader.result;
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
 
-        reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
     }
-}
+  }
   updateErrorMessage() {
     if (this.email.hasError('required')) {
       this.errorMessage.set('You must enter a value');
@@ -55,7 +55,8 @@ export class AppComponent {
         const pdf = new jsPDF('p', 'mm', 'a4');
         const position = 0;
         pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-        pdf.save('MYPdf.pdf');
+        const fileName = 'PDF_' + new Date().getTime() + '.pdf';
+        pdf.save(fileName);
       });
     }
   }
