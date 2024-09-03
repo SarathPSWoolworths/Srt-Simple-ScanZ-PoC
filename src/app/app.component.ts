@@ -2,6 +2,8 @@ import { Component, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, Validators } from '@angular/forms';
 import { merge } from 'rxjs';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,8 @@ export class AppComponent {
       .subscribe(() => this.updateErrorMessage());
   }
   submitImage() {
-    alert('Image sent to sps@tcs.woolworths.com.au');
+    this.downloadPDF();
+   // alert('PDF sent to sps@tcs.woolworths.com.au');
   }
   readURL(event: any ): void {
     if (!event?.currentTarget?.files) return;
@@ -39,6 +42,21 @@ export class AppComponent {
       this.errorMessage.set('Not a valid email');
     } else {
       this.errorMessage.set('');
+    }
+  }
+
+  downloadPDF() {
+    const data = document.getElementById('pdf-content');
+    if (data) {
+      html2canvas(data).then(canvas => {
+        const imgWidth = 208;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        const contentDataURL = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const position = 0;
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        pdf.save('MYPdf.pdf');
+      });
     }
   }
 }

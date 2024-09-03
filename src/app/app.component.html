@@ -3,16 +3,17 @@
     <h4>Simple ScanZ</h4>
   </mat-grid-tile>
   <mat-grid-tile>
-    <label for="uploadInput"><img width="80px" style="cursor: pointer;" alt="take photo" src="camera.svg"></label>
+    <label for="uploadInput" title="open camera"><img width="80px" style="cursor: pointer;" alt="take photo" src="camera.svg"></label>
     <input id="uploadInput" type="file" accept="image/*" style="display:none" (change)="readURL($event);"
       capture="user">
   </mat-grid-tile>
- 
-  <mat-grid-tile> @if (imageSrc) { <button mat-raised-button (click)="submitImage()">Submit</button>}</mat-grid-tile>
+  <mat-grid-tile> @if (imageSrc) {
+    <button mat-raised-button (click)="submitImage()">Download as PDF</button>
+    }</mat-grid-tile>
 </mat-grid-list>
 <div style="display: flex; align-items: center; justify-content: center;">
-@if(imageSrc)
-{
-<img [src]="imageSrc" style="width: 400px; height: 600px;" alt="your image" />
-}
+  @if(imageSrc)
+  {
+  <img id="pdf-content" [src]="imageSrc" style="width: 400px;" alt="your image" />
+  }
 </div>
